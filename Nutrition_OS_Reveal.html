@@ -171,8 +171,11 @@ const EX = { hero: 0, left: 1, right: 1 };          /* exposure of the light on 
 
 const mix = (a, b, t) => { const p = x => [1, 3, 5].map(i => parseInt(x.slice(i, i + 2), 16)); const A = p(a), B = p(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(",")})`; };
 const bump = (x, c, w) => Math.exp(-(((x - c) / w) ** 2));
+const LAST = {};
 function light(d) {
   const ry = gsap.getProperty(d, "rotationY"), rx = gsap.getProperty(d, "rotationX"), ex = EX[d.id];
+  const key = ry.toFixed(2) + "|" + rx.toFixed(2) + "|" + ex.toFixed(3);
+  if (LAST[d.id] === key) return; LAST[d.id] = key;
   const L = clamp((.12 + .85 * bump(ry, 34, 20) + .4 * bump(ry, 82, 12) + .2 * bump(ry, 12, 10)) * ex);
   const R = clamp((.12 + .85 * bump(ry, -34, 20) + .2 * bump(ry, -12, 10)) * ex);
   const B = clamp((.1 + .7 * clamp(Math.sin(rx * Math.PI / 180) * 1.6)) * ex);
@@ -193,7 +196,7 @@ const screen = (d, key, at, fade = 0) => {
   $$(".scr img", d).forEach(im => tl.to(im, { opacity: im.dataset.k === key ? 1 : 0, duration: fade || .001, ease: "none" }, at));
   tl.to($(".off", d), { opacity: 0, duration: fade || .001, ease: "none" }, at);
 };
-const tIn = (sel, at, d = 1.2) => tl.fromTo(sel, { opacity: 0, y: 16, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: d, ease: "power3.out", immediateRender: false }, at);
+const tIn = (sel, at, d = .8) => tl.fromTo(sel, { opacity: 0, y: 14, filter: "blur(5px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: d, ease: "power3.out", immediateRender: false }, at);
 const tOut = (sel, at, d = .6) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
 const dip = (at, down = .5, hold = .1, up = .6) => { tl.to("#dip", { opacity: 1, duration: down, ease: "power2.in" }, at); tl.to("#dip", { opacity: 0, duration: up, ease: "power2.out" }, at + down + hold); };
 const cut = at => tl.set("#dip", { opacity: 0 }, at);
@@ -204,83 +207,94 @@ gsap.set(DEVS, { x: 0, y: 0, z: 0, rotationX: 0, rotationY: 0, rotationZ: 0 });
    accents 31.27, riser 36.21, drop 36.94, hits 42.55 · 48.2 · 54.25, silence 57.5–70.78, re-entry 70.79, hit 73.6 */
 const BAR = 2.73, B0 = .195, bar = n => B0 + n * BAR, BEAT = .6825;
 
-/* 1 · silhouette: an edge of light in the dark (0 – 11.1) */
-show(HERO, 0, { x: 40, y: 10, z: -760, rotationY: 88, rotationX: 5, rotationZ: -2 });
+/* captions made on demand: one line, set against the side the phone is not on */
+const cap = (text, side, at, out) => {
+  const h = document.createElement("h2"); h.className = "t h"; h.textContent = text;
+  Object.assign(h.style, side === "L" ? { left: "160px", top: "470px", width: "760px" } : side === "R" ? { left: "1080px", top: "470px", width: "760px" } : { left: "0", right: "0", top: "120px", textAlign: "center" });
+  $("#stage").insertBefore(h, $("#title")); tIn(h, at, .7); tOut(h, out, .35); return h;
+};
+const shot = (at, key, from, to, len, ease = "sine.inOut") => { show(HERO, at, from); screen(HERO, key, at); move(HERO, at, len, to, ease); };
+
+/* 1 · edge of light: the frame, huge and edge-on (0 – 2.9) */
 tl.set($(".off", HERO), { opacity: 1 }, 0);
-tl.fromTo(EX, { hero: 0 }, { hero: 1, duration: 6, ease: "sine.inOut", immediateRender: false }, .2);
-move(HERO, .2, 10.9, { rotationY: 24, z: -420, x: 0, rotationZ: 0 }, "power2.inOut");
-tl.to("#backlight", { opacity: .9, duration: 7, ease: "sine.inOut" }, 1);
-screen(HERO, "home", bar(3), 1.6);
+show(HERO, 0, { x: -80, y: 0, z: 1100, rotationY: 89, rotationX: 0, rotationZ: -8 });
+tl.fromTo(EX, { hero: 0 }, { hero: 1, duration: 1.8, ease: "sine.inOut", immediateRender: false }, .19);
+move(HERO, .19, BAR, { rotationY: 76, x: 60, rotationZ: -3 }, "sine.inOut");
 
-/* 2 · the turn: face on (11.1 – 16.6) */
-move(HERO, bar(4), 5.2, { rotationY: 0, rotationX: 0, z: -120, y: 0 }, "power3.inOut");
-tl.to("#backlight", { opacity: .35, duration: 3, ease: "sine.inOut" }, bar(4) + 1);
-dip(bar(6) - .6, .55, .05, .5);
+/* 2 · the turn (2.9 – 5.7) */
+show(HERO, bar(1), { x: 0, y: 0, z: -520, rotationY: 76, rotationX: 6, rotationZ: -3 });
+move(HERO, bar(1), BAR, { rotationY: 16, z: -260, rotationZ: 0 }, "expo.inOut");
+tl.to("#backlight", { opacity: .8, duration: 1.5, ease: "sine.inOut" }, bar(1));
+screen(HERO, "home", bar(1) + 1.9, .7);
 
-/* 3 · the name (16.6 – 22.0) */
-hide(HERO, bar(6));
-tl.set("#backlight", { opacity: 0 }, bar(6));
-tIn("#title", bar(6) + .2, 1.8);
-tOut("#title", bar(8) - .9, .8);
+/* 3 · face on, pushing in (5.7 – 8.4) */
+shot(bar(2), "home", { x: 0, y: 40, z: -440, rotationY: -8, rotationX: 4, rotationZ: 0 }, { z: -30, y: 0, rotationY: 0, rotationX: 0 }, BAR, "expo.out");
+tl.to("#backlight", { opacity: .3, duration: 2, ease: "sine.inOut" }, bar(2));
 
-/* 4 · close: the day at a glance (22.0 – 27.5) */
-show(HERO, bar(8), { x: 440, y: 110, z: 470, rotationY: -24, rotationX: 9, rotationZ: 0 });
-screen(HERO, "home", bar(8));
-move(HERO, bar(8), 2 * BAR, { x: 360, y: 40, rotationY: -14, rotationX: 4 }, "sine.inOut");
-tIn("#tKnow", bar(8) + .5, 1.3);
-tOut("#tKnow", bar(10) - .7, .6);
+/* 4 · the name (8.4 – 11.1) */
+hide(HERO, bar(3)); tl.set("#backlight", { opacity: 0 }, bar(3));
+tl.fromTo("#title", { opacity: 0, scale: 1.06, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: .9, ease: "expo.out", immediateRender: false }, bar(3) + .05);
+tOut("#title", bar(4) - .35, .3);
 
-/* 5 · a real day of food (27.5 – 31.27) */
-show(HERO, bar(10), { x: -400, y: 30, z: 60, rotationY: 26, rotationX: -3, rotationZ: 0 });
-screen(HERO, "food-day", bar(10));
-move(HERO, bar(10), 31.27 - bar(10), { x: -360, rotationY: 19, z: 130 }, "sine.inOut");
-tIn("#tLog", bar(10) + .35, 1.1);
-tOut("#tLog", 30.7, .5);
+/* 5 · one idea per bar, the camera always moving (11.1 – 30.2) */
+shot(bar(4), "home", { x: 420, y: 260, z: 760, rotationY: -22, rotationX: 12, rotationZ: 0 }, { x: 330, y: 120, rotationY: -13 }, BAR);
+cap("Know what you eat.", "L", bar(4) + .2, bar(5) - .35);
+shot(bar(5), "food-day", { x: -420, y: 80, z: 360, rotationY: 28, rotationX: -4, rotationZ: 0 }, { x: -350, rotationY: 15, z: 460 }, BAR);
+cap("Log any meal.", "R", bar(5) + .2, bar(6) - .35);
+shot(bar(6), "food-day", { x: 380, y: -200, z: 820, rotationY: -30, rotationX: -10, rotationZ: 4 }, { x: 310, y: -130, rotationY: -19, rotationZ: 2 }, BAR);
+cap("Idli to biryani.", "L", bar(6) + .2, bar(7) - .35);
+shot(bar(7), "workout-log", { x: -380, y: 40, z: 300, rotationY: 34, rotationX: 4, rotationZ: 0 }, { x: -340, rotationY: 14 }, BAR, "expo.out");
+cap("Every set, logged.", "R", bar(7) + .2, bar(8) - .35);
+shot(bar(8), "progress-weight", { x: 400, y: 0, z: 260, rotationY: -12, rotationX: -6, rotationZ: -3 }, { x: 340, rotationY: -26, rotationZ: 0 }, BAR);
+cap("See the trend.", "L", bar(8) + .2, bar(9) - .35);
+shot(bar(9), "muscle-balance", { x: -360, y: 0, z: 240, rotationY: -150, rotationX: 0, rotationZ: 0 }, { rotationY: 18 }, 2.2, "expo.out");
+move(HERO, bar(9) + 2.2, BAR - 2.2, { rotationY: 13 }, "none");
+cap("Train in balance.", "R", bar(9) + .6, bar(10) - .35);
+shot(bar(10), "fasting", { x: 380, y: 60, z: -60, rotationY: -8, rotationX: -6, rotationZ: 0 }, { z: 120, rotationY: -20 }, 2.2, "sine.inOut");
+cap("Fasting, built in.", "L", bar(10) + .2, bar(11) - .1);
+move(HERO, bar(10) + 2.3, .75, { x: 1500, rotationY: -50 }, "power3.in");
 
-/* 6 · snap your plate, on the accent (31.27 – 36.94) */
-show(HERO, 31.27, { x: 0, y: 140, z: -40, rotationX: 50, rotationY: 0, rotationZ: -24 });
-screen(HERO, "ai-capture", 31.27);
-move(HERO, 31.27, 5.7, { rotationZ: -6, rotationX: 43, z: 70 }, "sine.inOut");
-tIn("#tSnap", 31.6, 1.3);
-tOut("#tSnap", 35.7, .5);
-tl.to("#dip", { opacity: 1, duration: .6, ease: "power2.in" }, 36.2);
+/* 6 · snap your plate, slammed down on the accent (31.27 – 36.2) */
+shot(31.27, "ai-capture", { x: 0, y: 330, z: -220, rotationX: 86, rotationY: 0, rotationZ: -32 }, { rotationX: 48, y: 140, z: -40, rotationZ: -14 }, 1.4, "expo.out");
+move(HERO, 32.67, 3.5, { rotationZ: -4, z: 60 }, "sine.inOut");
+tIn("#tSnap", 31.5, .8);
+tOut("#tSnap", 35.8, .35);
 
-/* 7 · montage on the drop: a cut every two beats (36.94 – 42.55) */
-tl.set("#dip", { opacity: 0 }, 36.94);
-const MONT = [
-  ["workout-log", "Workouts", { x: 300, y: 20, z: 240, rotationY: -20, rotationX: 5, rotationZ: 0 }, { x: 270, rotationY: -14 }],
-  ["progress-weight", "Progress", { x: -300, y: 20, z: 240, rotationY: 20, rotationX: -3, rotationZ: 0 }, { x: -270, rotationY: 14 }],
-  ["muscle-balance", "Muscle balance", { x: 300, y: 0, z: 200, rotationY: -26, rotationX: -5, rotationZ: 0 }, { x: 270, rotationY: -19 }],
-  ["fasting", "Fasting", { x: -300, y: 10, z: 200, rotationY: 18, rotationX: 4, rotationZ: 0 }, { x: -270, rotationY: 12 }],
+/* 7 · the riser pulls us into the screen; the drop cuts on every beat (36.21 – 42.55) */
+move(HERO, 36.21, .73, { rotationX: 0, rotationZ: 0, rotationY: 0, x: 0, y: 0, z: 1480 }, "power3.in");
+const DROP = [
+  ["home", { x: 320, y: 0, z: 260, rotationY: -24, rotationX: 6, rotationZ: 0 }, { x: 280, rotationY: -16 }],
+  ["food-day", { x: -320, y: 20, z: 300, rotationY: 26, rotationX: -4, rotationZ: 0 }, { x: -280, rotationY: 17 }],
+  ["workout-log", { x: 0, y: 180, z: 620, rotationY: -6, rotationX: 22, rotationZ: -6 }, { y: 120, rotationX: 16 }],
+  ["progress-weight", { x: 340, y: -40, z: 220, rotationY: -34, rotationX: -6, rotationZ: 3 }, { x: 300, rotationY: -25 }],
+  ["muscle-balance", { x: -340, y: 0, z: 260, rotationY: 34, rotationX: 5, rotationZ: -2 }, { x: -300, rotationY: 24 }],
+  ["fasting", { x: 0, y: -160, z: 700, rotationY: 10, rotationX: -18, rotationZ: 4 }, { y: -110, rotationX: -12 }],
+  ["achievements", { x: 300, y: 30, z: 160, rotationY: -18, rotationX: 0, rotationZ: 0 }, { x: 260, rotationY: -8 }],
+  ["plans", { x: -300, y: 30, z: 160, rotationY: 20, rotationX: 0, rotationZ: 0 }, { x: -260, rotationY: 9 }],
 ];
-MONT.forEach(([k, label, from, to], i) => {
-  const at = 36.94 + i * 2 * BEAT, len = i === 3 ? 42.55 - at : 2 * BEAT;
-  show(HERO, at, from); screen(HERO, k, at); move(HERO, at, len, to, "none");
-  const lb = document.createElement("div"); lb.className = "t klbl"; lb.textContent = label;
-  if (from.x > 0) lb.style.left = "180px"; else lb.style.right = "180px";
-  $("#stage").insertBefore(lb, $("#title"));
-  tl.set(lb, { opacity: 1 }, at); tl.set(lb, { opacity: 0 }, at + len);
-});
+DROP.forEach(([k, from, to], i) => { const at = 36.94 + i * BEAT, len = i === DROP.length - 1 ? 42.55 - at : BEAT; shot(at, k, from, to, len, "power1.out"); });
 
-/* 8 · the family, on the hit (42.55 – 48.2) */
-show(HERO, 42.55, { x: 0, y: 420, z: -140, rotationY: 0, rotationX: 0, rotationZ: 0 });
-show(LEFT, 42.55, { x: -560, y: 460, z: -420, rotationY: 24, rotationX: 0, rotationZ: 0 });
-show(RIGHT, 42.55, { x: 560, y: 460, z: -420, rotationY: -24, rotationX: 0, rotationZ: 0 });
+/* 8 · the family on the hit; their screens change on the bar (42.55 – 48.2) */
+show(HERO, 42.55, { x: 0, y: 460, z: -140, rotationY: 0, rotationX: 0, rotationZ: 0 });
+show(LEFT, 42.55, { x: -560, y: 520, z: -420, rotationY: 24, rotationX: 0, rotationZ: 0 });
+show(RIGHT, 42.55, { x: 560, y: 520, z: -420, rotationY: -24, rotationX: 0, rotationZ: 0 });
 screen(HERO, "home", 42.55); screen(LEFT, "achievements", 42.55); screen(RIGHT, "plans", 42.55);
-move(HERO, 42.55, 2, { y: 90 }, "expo.out"); move(LEFT, 42.55 + BEAT / 4, 2, { y: 120 }, "expo.out"); move(RIGHT, 42.55 + BEAT / 2, 2, { y: 120 }, "expo.out");
-move(HERO, 44.6, 3.6, { z: -60 }, "sine.inOut"); move(LEFT, 44.7, 3.5, { rotationY: 16, x: -540 }, "sine.inOut"); move(RIGHT, 44.8, 3.4, { rotationY: -16, x: 540 }, "sine.inOut");
-tl.to("#backlight", { opacity: .3, duration: 2, ease: "sine.inOut" }, 42.7);
-tIn("#tAll", 43.3, 1.2);
-tOut("#tAll", 47.5, .5);
+move(HERO, 42.55, 1.2, { y: 90 }, "expo.out"); move(LEFT, 42.55 + BEAT / 4, 1.2, { y: 120 }, "expo.out"); move(RIGHT, 42.55 + BEAT / 2, 1.2, { y: 120 }, "expo.out");
+move(HERO, 43.8, 4.4, { z: -40 }, "sine.inOut"); move(LEFT, 43.8, 4.4, { rotationY: 14, x: -530 }, "sine.inOut"); move(RIGHT, 43.8, 4.4, { rotationY: -14, x: 530 }, "sine.inOut");
+const SW = 42.55 + 4 * BEAT;
+screen(HERO, "food-day", SW, .25); screen(LEFT, "workout-log", SW + BEAT / 4, .25); screen(RIGHT, "progress-weight", SW + BEAT / 2, .25);
+tl.to("#backlight", { opacity: .3, duration: 1.5, ease: "sine.inOut" }, 42.6);
+tIn("#tAll", 42.9, .8);
+tOut("#tAll", 47.8, .35);
 hide(HERO, 48.2); hide(LEFT, 48.2); hide(RIGHT, 48.2);
 tl.set("#backlight", { opacity: 0 }, 48.2);
 
 /* 9 · launch card, on the hit, held while the music falls away (48.2 – 57.2) */
-tIn("#endName", 48.2, 1.4);
-tIn("#endUse", 49.6, 1.1);
+tIn("#endName", 48.2, 1.0);
+tIn("#endUse", 48.2 + BEAT, .8);
 $("#endUrl").textContent = APP_URL;
-tIn("#endUrl", 50.3, 1.1);
-tIn("#endSpots", 51.9, 1.1);
+tIn("#endUrl", 48.2 + 2 * BEAT, .8);
+tIn("#endSpots", 48.2 + 4 * BEAT, .9);
 tl.to(["#endName", "#endUse", "#endUrl", "#endSpots"], { opacity: 0, duration: 1.4, ease: "power2.in" }, 55.8);
 
 /* 10 · in the silence (57.5 – 70.7) */
