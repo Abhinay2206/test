@@ -28,12 +28,14 @@ Each feature holds for eight beats. Between features the phone glides across the
 | Time | Headline | Spotlight 1 | Spotlight 2 |
 |---|---|---|---|
 | 0:26.3 | **Your day at a glance.** | Calories left today · *508 of 2,540 kcal to go* | Protein, carbs, fat, fibre · *Each against your own target* |
-| 0:30.9 | **Log any meal in seconds.** | Indian food, built in · *Idli, sambar, rice, curd* | What's left, always visible · *Calories and protein remaining* |
-| 0:35.5 | **Or just snap your plate.** | AI suggests the foods and amounts · *Point your camera at the plate* | You confirm before it's logged · *Nothing is saved without you* |
-| 0:40.1 | **Log every set.** | Weight and reps, set by set · *Done sets tick off as you go* | It tells you what to lift next · *Try 22.5 kg × 9* |
-| 0:44.8 | **See the real trend.** | Your weight over 30 days · *+1.6 kg, right on plan* | Every day against your target · *Target 2,540 kcal* |
+| 0:30.9 | **Log any meal in seconds.** | Indian dishes, ready to log · *Chicken 65 to chicken biryani* | Filter by region and cuisine · *Telangana, Indian, breakfast* |
+| 0:35.5 | **Your portion, your numbers.** | Pick your portion in one tap · *Macros update instantly* | Homemade? Use your own numbers · *The original estimate is kept* |
+| 0:40.1 | **Or just snap your plate.** | AI suggests the foods and amounts · *Point your camera at the plate* | You confirm before it's logged · *Nothing is saved without you* |
+| 0:44.8 | **Log every set.** | Weight and reps, set by set · *Done sets tick off as you go* | It tells you what to lift next · *Try 22.5 kg × 9* |
 | 0:49.4 | **Train every muscle evenly.** | Hard sets per muscle, every week · *Orange means undertrained* | It spots what you're skipping · *"Don't skip leg day."* |
-| 0:54.0 | *The lift.* Quick cuts: **Fasting timer.** · **Streaks and badges.** · **Programs you can repeat.** | | |
+| 0:54.0 | *The lift.* Quick cuts: **See the real trend.** · **Your whole month, at a glance.** · **Fasting, built in.** | | |
+
+Screens are the 780 × 1688 captures from `screens.zip`.
 
 ### Act 4 · One app, and the launch on the peak (0:57 – 1:09)
 | Time | On screen |
