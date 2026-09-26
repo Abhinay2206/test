@@ -1,59 +1,59 @@
 # Nutrition OS — product film
 
-82 seconds · 1920 × 1080 · 60 fps · on-screen text only, no voiceover.
-Everything is cut to a **100 BPM** grid: one beat = 0.6 s, one bar = 2.4 s.
-Film: `Nutrition_OS_Reveal.html` (plays in a browser) and `Nutrition_OS_Reveal.mp4`.
+1:25 · 1920 × 1080 · 60 fps · on-screen text only, no voiceover.
+Cut to **"The Calm Arrival"** at 103.95 BPM: beat *n* falls at 0.302 + 0.5772 × *n* seconds.
+Film: `Nutrition_OS_Reveal.html` (plays in a browser, track embedded) and `Nutrition_OS_Reveal.mp4`.
 
 ## Script
 
-### Act 1 · The problem (0:00 – 0:14)
+### Act 1 · The problem, over the calm intro (0:00 – 0:18)
 | Time | On screen |
 |---|---|
-| 0:00 | **You eat every day.** |
-| 0:03.6 | One word per beat, huge: **Idli. Dosa. Biryani. Chai.** |
-| 0:05 | **But what's really on your plate?** |
-| 0:09.6 | One word per beat: **Calories. Protein. Carbs. Fat.** |
-| 0:12 | **Most apps leave you guessing.** |
+| 0:03.2 | **You eat every day.** |
+| 0:06.1 | One word every two beats, huge: **Idli. Dosa. Biryani. Chai.** |
+| 0:10.8 | **But what's really on your plate?** (only after "Chai." has fully cleared) |
+| 0:13.6 | One word per beat: **Calories. Protein. Carbs. Fat.** |
+| 0:16.5 | **Most apps leave you guessing.** |
 
-### Act 2 · The reveal (0:14 – 0:24)
+### Act 2 · The reveal, building into the drums (0:18 – 0:26)
 | Time | On screen |
 |---|---|
-| 0:14.4 | *Hit.* A phone turns out of the dark, lit only along its edge. The screen wakes. |
-| 0:19.2 | **Meet Nutrition OS.** |
-| 0:21.6 | **One app for your food, training and progress.** |
+| 0:18.2 | A phone turns out of the dark, lit only along its edge. The screen wakes at 0:20.5. |
+| 0:21.66 | *Drums enter.* Hard cut: **Meet Nutrition OS.** |
+| 0:24.0 | **One app for your food, training and progress.** |
 
-### Act 3 · How it works (0:24 – 0:58)
-Each feature holds for two bars. The headline appears first. Then the rest of the screen dims, one part of the real app lights up, and a label explains it.
+### Act 3 · How it works, on the groove (0:26 – 0:54)
+Each feature holds for eight beats. Between features the phone glides across the frame to its next position while the screen changes, so the camera never cuts. The headline appears first, then the rest of the screen dims, one part of the real app lights up, and a label explains it.
 
 | Time | Headline | Spotlight 1 | Spotlight 2 |
 |---|---|---|---|
-| 0:24 | **Your day at a glance.** | Calories left today · *508 of 2,540 kcal to go* | Protein, carbs, fat, fibre · *Each against your own target* |
-| 0:28.8 | **Log any meal in seconds.** | Indian food, built in · *Idli, sambar, rice, curd* | What's left, always visible · *Calories and protein remaining* |
-| 0:33.6 | **Or just snap your plate.** | AI suggests the foods and amounts · *Point your camera at the plate* | You confirm before it's logged · *Nothing is saved without you* |
-| 0:38.4 | **Log every set.** | Weight and reps, set by set · *Done sets tick off as you go* | It tells you what to lift next · *Try 22.5 kg × 9* |
-| 0:43.2 | **See the real trend.** | Your weight over 30 days · *+1.6 kg, right on plan* | Every day against your target · *Target 2,540 kcal* |
-| 0:48 | **Train every muscle evenly.** | Hard sets per muscle, every week · *Orange means undertrained* | It spots what you're skipping · *"Don't skip leg day."* |
-| 0:52.8 | Quick cuts: **Fasting timer.** · **Streaks and badges.** · **Programs you can repeat.** | | |
+| 0:26.3 | **Your day at a glance.** | Calories left today · *508 of 2,540 kcal to go* | Protein, carbs, fat, fibre · *Each against your own target* |
+| 0:30.9 | **Log any meal in seconds.** | Indian food, built in · *Idli, sambar, rice, curd* | What's left, always visible · *Calories and protein remaining* |
+| 0:35.5 | **Or just snap your plate.** | AI suggests the foods and amounts · *Point your camera at the plate* | You confirm before it's logged · *Nothing is saved without you* |
+| 0:40.1 | **Log every set.** | Weight and reps, set by set · *Done sets tick off as you go* | It tells you what to lift next · *Try 22.5 kg × 9* |
+| 0:44.8 | **See the real trend.** | Your weight over 30 days · *+1.6 kg, right on plan* | Every day against your target · *Target 2,540 kcal* |
+| 0:49.4 | **Train every muscle evenly.** | Hard sets per muscle, every week · *Orange means undertrained* | It spots what you're skipping · *"Don't skip leg day."* |
+| 0:54.0 | *The lift.* Quick cuts: **Fasting timer.** · **Streaks and badges.** · **Programs you can repeat.** | | |
 
-### Act 4 · One app, and the launch (0:58 – 1:10)
+### Act 4 · One app, and the launch on the peak (0:57 – 1:09)
 | Time | On screen |
 |---|---|
-| 0:57.6 | Three phones rise. **Food. Training. Progress.** → **All in one app.** |
-| 1:02.4 | **Nutrition OS** · **Use it today.** · nutritionos.orvantia.in · **Only 25 spots available.** (one line per beat) |
+| 0:57.4 | Three phones rise. **Food. Training. Progress.** → **All in one app.** |
+| 1:02.64 | *Peak accent.* **Nutrition OS** · **Use it today.** · nutritionos.orvantia.in · **Only 25 spots available.** (one line per beat) |
 
-### Act 5 · The tease (1:10 – 1:22)
+### Act 5 · The tease and the end frame (1:09 – 1:25)
 | Time | On screen |
 |---|---|
-| 1:09.6 | *Near silence.* **There's more coming.** |
-| 1:12 | **We'll reveal it soon.** |
-| 1:14.4 | *Final hit.* The Orvantia mark draws itself. **ORVANTIA BUILDS** (a band of light passes through it) |
-| 1:16.8 | **NUTRITION OS** |
-| 1:18 | *More than tracking.* **Something bigger is being built.** |
-| 1:20 – 1:21.6 | Fade to black. |
+| 1:09.6 | *Music winds down.* **There's more coming.** |
+| 1:12.5 | **We'll reveal it soon.** |
+| 1:17.07 | *Last swell.* The Orvantia mark draws itself. **ORVANTIA BUILDS** (a band of light passes through it) |
+| 1:18.8 | **NUTRITION OS** |
+| 1:20.2 | *More than tracking.* **Something bigger is being built.** |
+| 1:22.6 – 1:24.6 | Fade to black with the music's tail. |
 
 ## Music brief
 
-The film is already cut to these times. Generate the track, send it to me, and I'll snap every cut to its real beats and hits. The generator doesn't have to land the times exactly.
+The film is now cut to "The Calm Arrival". Keep these prompts for future versions: generate a track, send it, and the cuts get snapped to its real beats.
 
 ### Prompt for Suno (v4.5 or later, Instrumental on)
 
